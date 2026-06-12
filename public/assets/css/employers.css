@@ -1,0 +1,246 @@
+:root {
+    --directory-hero-bg: linear-gradient(135deg, rgba(0, 177, 79, 0.12), rgba(13, 110, 253, 0.08));
+}
+
+.employer-directory {
+    background: var(--jf-bg);
+}
+
+.directory-hero {
+    background: var(--directory-hero-bg);
+    padding: 3rem 0;
+}
+
+.directory-hero h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--jf-text);
+}
+
+.directory-hero p {
+    color: var(--jf-muted);
+    max-width: 580px;
+}
+
+.directory-hero .badge {
+    background: rgba(0, 177, 79, 0.14);
+    color: var(--jf-primary);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+}
+
+.directory-stats {
+    margin-top: 2rem;
+}
+
+.directory-stats .stat-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.07);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.directory-stats .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 52px rgba(15, 23, 42, 0.1);
+}
+
+.directory-stats .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--jf-text);
+}
+
+.directory-stats .stat-label {
+    color: var(--jf-muted);
+    margin-bottom: 0;
+}
+
+.directory-filters {
+    margin-top: -2.5rem;
+    position: relative;
+    z-index: 3;
+}
+
+.directory-filters .filter-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 25px 40px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.directory-filters .form-control,
+.directory-filters .form-select {
+    border-radius: 14px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+.directory-filters .form-control:focus,
+.directory-filters .form-select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 177, 79, 0.12);
+    border-color: rgba(0, 177, 79, 0.45);
+}
+
+.directory-results {
+    padding: 3rem 0;
+}
+
+.company-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 1.75rem;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.07);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1.25rem;
+}
+
+.company-card:hover {
+    border-color: rgba(0, 177, 79, 0.35);
+    box-shadow: 0 28px 54px rgba(0, 177, 79, 0.12);
+}
+
+.company-card-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.company-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: rgba(0, 177, 79, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    flex-shrink: 0;
+}
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.company-logo-fallback {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--jf-primary);
+}
+
+.company-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.company-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--jf-muted);
+}
+
+.company-meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.company-meta i {
+    color: var(--jf-primary);
+}
+
+.company-about {
+    color: var(--jf-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.company-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.company-tags .tag {
+    border-radius: 999px;
+    background: rgba(0, 177, 79, 0.12);
+    color: var(--jf-primary);
+    padding: 0.35rem 0.85rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.company-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.company-card-footer .btn {
+    border-radius: 999px;
+    padding: 0.55rem 1.25rem;
+}
+
+.company-empty {
+    background: #fff;
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    border: 1px dashed rgba(15, 23, 42, 0.18);
+    color: var(--jf-muted);
+}
+
+.company-empty i {
+    font-size: 2rem;
+    color: var(--jf-primary);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 991.98px) {
+    .directory-hero {
+        text-align: center;
+    }
+
+    .directory-hero p {
+        margin: 0 auto;
+    }
+
+    .directory-filters .filter-card {
+        padding: 1.25rem;
+    }
+
+    .company-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .company-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .company-card-footer .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,9 @@
+.git
+.gitignore
+.idea
+.vscode
+node_modules
+*.log
+public/uploads/*
+!public/uploads/.gitkeep
+README_*.md
