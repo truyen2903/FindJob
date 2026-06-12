@@ -1,0 +1,57 @@
+name: JobFind CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Show Docker versions
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Build and start containers
+        run: |
+          docker compose up -d --build
+
+      - name: Wait for application
+        run: |
+          for i in {1..30}; do
+            if curl -f http://localhost:8080 > /dev/null 2>&1; then
+              echo "Application is ready"
+              exit 0
+            fi
+            echo "Waiting for app..."
+            sleep 5
+          done
+          docker compose logs
+          exit 1
+
+      - name: Show running containers
+        run: docker compose ps
+
+      - name: Test homepage
+        run: curl -f http://localhost:8080
+
+      - name: Test login page
+        run: curl -f http://localhost:8080/account/login.php
+
+      - name: Test admin page
+        run: curl -f http://localhost:8080/admin
+
+      - name: Show logs if failed
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down
