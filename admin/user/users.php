@@ -97,11 +97,19 @@ ob_start();
       </thead>
       <tbody>
       <?php while ($u = $res->fetch_assoc()): ?>
+        <?php
+          $avatarSrc = '';
+          if (!empty($u['avatar_path'])) {
+            $avatarSrc = filter_var($u['avatar_path'], FILTER_VALIDATE_URL)
+              ? $u['avatar_path']
+              : BASE_URL . '/' . ltrim($u['avatar_path'], '/');
+          }
+        ?>
         <tr>
           <td><?= $u['id'] ?></td>
           <td style="width:60px;">
-            <?php if ($u['avatar_path']): ?>
-              <img src="<?= BASE_URL ?>/<?= htmlspecialchars($u['avatar_path']) ?>" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
+            <?php if ($avatarSrc): ?>
+              <img src="<?= htmlspecialchars($avatarSrc) ?>" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
             <?php else: ?>
               <span class="text-muted small">Không có</span>
             <?php endif; ?>
@@ -110,8 +118,8 @@ ob_start();
           <td><?= htmlspecialchars($u['name']) ?></td>
           <td><?= htmlspecialchars($u['role_name']) ?></td>
            <td style="width:60px;">
-            <?php if ($u['avatar_path']): ?>
-              <img src="<?= BASE_URL ?>/<?= htmlspecialchars($u['avatar_path']) ?>" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
+            <?php if ($avatarSrc): ?>
+              <img src="<?= htmlspecialchars($avatarSrc) ?>" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
             <?php else: ?>
               <span class="text-muted small">Không có</span>
             <?php endif; ?>

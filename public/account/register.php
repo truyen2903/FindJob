@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="auth-divider"><span>Hoặc đăng ký nhanh bằng</span></div>
 
                 <div class="auth-socials">
-                    <a href="<?= BASE_URL ?>/google_login.php" class="auth-social is-google">
+                    <a href="<?= BASE_URL ?>/google_login.php?role=<?= urlencode($formValues['role']) ?>" class="auth-social is-google" id="googleRegisterLink">
                         <i class="fa-brands fa-google"></i> Google
                     </a>
                     <a href="#" class="auth-social is-facebook is-disabled" aria-disabled="true">
@@ -170,6 +170,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
         });
+
+        const roleSelect = document.getElementById('role');
+        const googleRegisterLink = document.getElementById('googleRegisterLink');
+        if (roleSelect && googleRegisterLink) {
+            roleSelect.addEventListener('change', function () {
+                const url = new URL(googleRegisterLink.href);
+                url.searchParams.set('role', this.value);
+                googleRegisterLink.href = url.toString();
+            });
+        }
     </script>
     <script src="<?= ASSETS_URL ?>/js/form-validation.js" defer></script>
 </body>

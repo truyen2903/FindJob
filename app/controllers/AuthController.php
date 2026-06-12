@@ -29,7 +29,9 @@ class AuthController {
             $_SESSION['email'] = $user['email'];
             $_SESSION['user_name'] = $user['name'] ?? null;
             if (!empty($user['avatar_path'])) {
-                $_SESSION['avatar_url'] = BASE_URL . '/' . ltrim($user['avatar_path'], '/');
+                $_SESSION['avatar_url'] = filter_var($user['avatar_path'], FILTER_VALIDATE_URL)
+                    ? $user['avatar_path']
+                    : BASE_URL . '/' . ltrim($user['avatar_path'], '/');
             } else {
                 $_SESSION['avatar_url'] = null;
             }
@@ -44,4 +46,3 @@ class AuthController {
         session_destroy();
     }
 }
-

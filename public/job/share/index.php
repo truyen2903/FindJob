@@ -153,7 +153,7 @@ if ($showSaved && empty($savedJobIds)) {
   }
   $offset = ($page - 1) * $perPage;
 
-  $dataSql = "SELECT j.id, j.title, j.location, j.salary, j.employment_type, j.quantity, j.deadline, j.created_at, j.view_count,
+  $dataSql = "SELECT j.id, j.title, j.location, j.salary, j.employment_type, j.quantity, j.deadline, j.created_at,
              e.company_name, e.logo_path
         FROM jobs j
         INNER JOIN employers e ON e.id = j.employer_id

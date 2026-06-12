@@ -33,7 +33,12 @@ if (!empty($profile['profile_picture'])) {
 } elseif (!empty($profile['avatar_path'])) {
   $currentAvatarPath = $profile['avatar_path'];
 }
-$currentAvatarUrl = $currentAvatarPath ? BASE_URL . '/' . ltrim($currentAvatarPath, '/') : null;
+$currentAvatarUrl = null;
+if ($currentAvatarPath) {
+  $currentAvatarUrl = filter_var($currentAvatarPath, FILTER_VALIDATE_URL)
+    ? $currentAvatarPath
+    : BASE_URL . '/' . ltrim($currentAvatarPath, '/');
+}
 $removeAvatarChecked = false;
 
 $fullNameValue = trim((string)($profile['full_name'] ?? ''));

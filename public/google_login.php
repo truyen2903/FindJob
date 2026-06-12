@@ -21,6 +21,9 @@ if ($placeholder) {
     exit;
 }
 
+$requestedRole = (int)($_GET['role'] ?? 3);
+$_SESSION['google_oauth_role'] = in_array($requestedRole, [2, 3], true) ? $requestedRole : 3;
+
 $redirectUri = google_oauth_redirect_uri($config);
 
 $params = [

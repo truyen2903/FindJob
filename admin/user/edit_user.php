@@ -114,8 +114,13 @@ ob_start();
           <label class="form-label">Ảnh đại diện (tuỳ chọn)</label>
           <input type="file" name="avatar" accept="image/*" class="form-control">
           <?php if ($user['avatar_path']): ?>
+            <?php
+              $avatarSrc = filter_var($user['avatar_path'], FILTER_VALIDATE_URL)
+                ? $user['avatar_path']
+                : BASE_URL . '/' . ltrim($user['avatar_path'], '/');
+            ?>
             <div class="mt-2">
-              <img src="<?= BASE_URL ?>/<?= htmlspecialchars($user['avatar_path']) ?>" width="100" class="rounded">
+              <img src="<?= htmlspecialchars($avatarSrc) ?>" width="100" class="rounded">
             </div>
           <?php endif; ?>
         </div>

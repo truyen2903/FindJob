@@ -174,7 +174,9 @@ $latestUpdate = !empty($profile['created_at']) ? date('d/m/Y', strtotime($profil
 $avatarPath = $profile['profile_picture'] ?: ($profile['avatar_path'] ?? null);
 $avatarUrl = '';
 if (!empty($avatarPath)) {
-    $avatarUrl = BASE_URL . '/' . ltrim($avatarPath, '/');
+    $avatarUrl = filter_var($avatarPath, FILTER_VALIDATE_URL)
+        ? $avatarPath
+        : BASE_URL . '/' . ltrim($avatarPath, '/');
 }
 $profileInitial = jf_profile_initial($fullName);
 

@@ -57,7 +57,12 @@ ob_start();
     <p>Bạn có chắc chắn muốn xóa tài khoản <strong><?= htmlspecialchars($user['name']) ?></strong> (<?= htmlspecialchars($user['email']) ?>)?</p>
 
     <?php if (!empty($user['avatar_path'])): ?>
-      <p><img src="<?= BASE_URL ?>/<?= htmlspecialchars($user['avatar_path']) ?>" width="80" height="80" style="object-fit:cover;border-radius:8px;"></p>
+      <?php
+        $avatarSrc = filter_var($user['avatar_path'], FILTER_VALIDATE_URL)
+          ? $user['avatar_path']
+          : BASE_URL . '/' . ltrim($user['avatar_path'], '/');
+      ?>
+      <p><img src="<?= htmlspecialchars($avatarSrc) ?>" width="80" height="80" style="object-fit:cover;border-radius:8px;"></p>
     <?php endif; ?>
 
     <form method="POST" class="text-end">

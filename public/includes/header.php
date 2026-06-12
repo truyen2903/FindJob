@@ -23,7 +23,9 @@ if (!$avatarChecked && isset($_SESSION['user_id'])) {
             $_SESSION['user_name'] = $headerUser['name'];
         }
         if (!empty($headerUser['avatar_path'])) {
-            $avatarUrl = BASE_URL . '/' . ltrim($headerUser['avatar_path'], '/');
+            $avatarUrl = filter_var($headerUser['avatar_path'], FILTER_VALIDATE_URL)
+                ? $headerUser['avatar_path']
+                : BASE_URL . '/' . ltrim($headerUser['avatar_path'], '/');
             $_SESSION['avatar_url'] = $avatarUrl;
         } else {
             $_SESSION['avatar_url'] = null;
