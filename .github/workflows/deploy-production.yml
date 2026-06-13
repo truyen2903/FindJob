@@ -1,0 +1,44 @@
+name: Deploy Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: http://${{ secrets.EC2_HOST }}:8082
+
+    steps:
+      - name: Deploy to EC2 Production
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            PROD_DIR="/home/ubuntu/FindJob-production"
+            REPO_URL="https://github.com/${{ github.repository }}.git"
+
+            if [ ! -d "$PROD_DIR/.git" ]; then
+              git clone "$REPO_URL" "$PROD_DIR"
+            fi
+
+            cd "$PROD_DIR"
+
+            git fetch origin main
+            git checkout main || git checkout -b main origin/main
+            git reset --hard origin/main
+
+            docker compose -p jobfind_prod -f docker-compose.prod.yml up -d --build --remove-orphans
+
+            docker compose -p jobfind_prod -f docker-compose.prod.yml ps
+
+            sleep 10
+            curl -f http://localhost:8082
+
