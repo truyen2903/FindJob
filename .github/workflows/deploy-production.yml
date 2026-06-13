@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: http://${{ secrets.EC2_HOST }}:8082
 
     steps:
       - name: Deploy to EC2 Production
@@ -41,4 +40,3 @@ jobs:
 
             sleep 10
             curl -f http://localhost:8082
-
