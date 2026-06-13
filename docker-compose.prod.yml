@@ -10,7 +10,7 @@ services:
       DB_HOST: db
       DB_USER: jobfind
       DB_PASS: jobfind_pass
-      DB_NAME: jobfinder_prod
+      DB_NAME: jobfinder
     volumes:
       - ./:/var/www/html
       - ./public/uploads:/var/www/html/public/uploads
@@ -24,7 +24,7 @@ services:
     container_name: jobfind_prod_db
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
-      MYSQL_DATABASE: jobfinder_prod
+      MYSQL_DATABASE: jobfinder
       MYSQL_USER: jobfind
       MYSQL_PASSWORD: jobfind_pass
     volumes:
