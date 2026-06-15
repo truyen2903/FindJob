@@ -39,14 +39,40 @@ jobs:
       - name: Show running containers
         run: docker compose ps
 
+      - name: PHP syntax check
+        run: |
+          docker compose exec -T app sh -lc '
+            status=0
+            find . -type f -name "*.php" \
+              ! -path "./.git/*" \
+              ! -path "./public/assets/vendor/*" \
+              ! -path "./public/uploads/*" \
+              -print | sort > /tmp/php-files.txt
+
+            while IFS= read -r file; do
+              output=$(php -l "$file" 2>&1)
+              code=$?
+              if [ "$code" -ne 0 ]; then
+                line=$(printf "%s\n" "$output" | sed -n "s/.* on line \([0-9][0-9]*\).*/\1/p" | tail -n 1)
+                [ -n "$line" ] || line=1
+                message=$(printf "%s" "$output" | tr "\n" " ")
+                path=${file#./}
+                echo "::error file=${path},line=${line}::${message}"
+                status=1
+              fi
+            done < /tmp/php-files.txt
+
+            exit "$status"
+          '
+
       - name: Test homepage
-        run: curl -f http://localhost:8080
+        run: curl --fail-with-body --show-error --silent http://localhost:8080
 
       - name: Test login page
-        run: curl -f http://localhost:8080/account/login.php
+        run: curl --fail-with-body --show-error --silent http://localhost:8080/account/login.php
 
       - name: Test admin page
-        run: curl -f http://localhost:8080/admin
+        run: curl --fail-with-body --show-error --silent http://localhost:8080/admin
 
       - name: Show logs if failed
         if: failure()

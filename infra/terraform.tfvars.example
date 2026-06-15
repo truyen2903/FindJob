@@ -1,0 +1,17 @@
+region      = "ap-southeast-1"
+project_name = "jobfind"
+
+instance_type = "t3.small"
+
+public_key_path = "~/.ssh/aws/findjob-key.pub"
+
+# Dùng 0.0.0.0/0 để GitHub Actions hosted runner SSH được vào EC2.
+# Sau demo có thể siết lại bảo mật.
+ssh_cidr = "0.0.0.0/0"
+
+domain_name         = "thaytruyen.id.vn"
+staging_domain_name = "staging.thaytruyen.id.vn"
+
+# Tạo bằng lệnh:
+# htpasswd -nbB username password
+staging_basic_auth_line = "CHANGE_ME"
