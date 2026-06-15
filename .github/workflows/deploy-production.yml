@@ -21,7 +21,7 @@ jobs:
           script: |
             set -e
 
-            PROD_DIR="/home/ubuntu/FindJob-production"
+            PROD_DIR="/var/www/jobfind-production"
             REPO_URL="https://github.com/${{ github.repository }}.git"
 
             if [ ! -d "$PROD_DIR/.git" ]; then
