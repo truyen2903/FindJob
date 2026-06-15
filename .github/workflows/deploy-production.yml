@@ -40,6 +40,8 @@ jobs:
             GOOGLE_REDIRECT_URI=https://thaytruyen.id.vn/google_callback.php
             EOF
 
+            docker ps -aq --filter "name=jobfind_prod_app" | xargs -r docker rm -f
+
             docker compose -p jobfind_prod -f docker-compose.prod.yml up -d --build --remove-orphans
 
             docker compose -p jobfind_prod -f docker-compose.prod.yml ps
