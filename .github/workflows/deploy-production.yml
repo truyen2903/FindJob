@@ -1,4 +1,3 @@
-```yaml
 name: Deploy Production
 
 on:
@@ -51,4 +50,3 @@ jobs:
 
             sleep 10
             curl -f http://localhost:8082
-```
