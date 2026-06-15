@@ -26,11 +26,16 @@ jobs:
             git checkout develop || git checkout -b develop origin/develop
             git reset --hard origin/develop
 
-            cat > .env <<'EOF'
-            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            GOOGLE_REDIRECT_URI=http://staging.thaytruyen.id.vn/google_callback.php
-            EOF
+            printf '%s\n' \
+              'GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}' \
+              'GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}' \
+              'GOOGLE_REDIRECT_URI=http://staging.thaytruyen.id.vn/google_callback.php' \
+              > .env
+
+            chmod 600 .env
+
+            docker compose down --remove-orphans || true
+            docker rm -f jobfind_app jobfind_db jobfind_phpmyadmin phpmyadmin 2>/dev/null || true
 
             docker compose up -d --build --remove-orphans
 
