@@ -37,7 +37,7 @@ jobs:
             cat > .env <<'EOF'
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            GOOGLE_REDIRECT_URI=https://thaytruyen.id.vn/google_callback.php
+            GOOGLE_REDIRECT_URI=http://thaytruyen.id.vn/google_callback.php
             EOF
 
             docker ps -aq --filter "name=jobfind_prod_app" | xargs -r docker rm -f
