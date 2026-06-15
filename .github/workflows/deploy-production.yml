@@ -34,6 +34,12 @@ jobs:
             git checkout main || git checkout -b main origin/main
             git reset --hard origin/main
 
+            cat > .env <<'EOF'
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_REDIRECT_URI=https://thaytruyen.id.vn/google_callback.php
+            EOF
+
             docker compose -p jobfind_prod -f docker-compose.prod.yml up -d --build --remove-orphans
 
             docker compose -p jobfind_prod -f docker-compose.prod.yml ps
