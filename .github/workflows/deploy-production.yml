@@ -1,3 +1,4 @@
+```yaml
 name: Deploy Production
 
 on:
@@ -34,13 +35,15 @@ jobs:
             git checkout main || git checkout -b main origin/main
             git reset --hard origin/main
 
-            cat > .env <<'EOF'
-            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            GOOGLE_REDIRECT_URI=http://thaytruyen.id.vn/google_callback.php
-            EOF
+            printf '%s\n' \
+              'GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}' \
+              'GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}' \
+              'GOOGLE_REDIRECT_URI=http://thaytruyen.id.vn/google_callback.php' \
+              > .env
 
-            docker ps -aq --filter "name=jobfind_prod_app" | xargs -r docker rm -f
+            chmod 600 .env
+
+            docker compose -p jobfind_prod -f docker-compose.prod.yml down --remove-orphans || true
 
             docker compose -p jobfind_prod -f docker-compose.prod.yml up -d --build --remove-orphans
 
@@ -48,3 +51,4 @@ jobs:
 
             sleep 10
             curl -f http://localhost:8082
+```
