@@ -1,0 +1,34 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Deploy to EC2 Staging
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            cd "${{ secrets.EC2_APP_DIR }}"
+
+            git fetch origin
+            git checkout develop || git checkout -b develop origin/develop
+            git reset --hard origin/develop
+
+            docker compose up -d --build --remove-orphans
+
+            docker compose ps
+
+            sleep 5
+            curl -f http://localhost:8080

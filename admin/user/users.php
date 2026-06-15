@@ -86,13 +86,12 @@ ob_start();
     <table class="table table-bordered table-hover align-middle bg-white">
       <thead class="table-light">
         <tr>
-           
           <th>ID</th>
+          <th>Ảnh</th>
           <th>Email</th>
           <th>Tên</th>
           <th>Vai trò</th>
           <th width="180">Thao tác</th>
-          <th>Ảnh</th>
         </tr>
       </thead>
       <tbody>
@@ -117,13 +116,6 @@ ob_start();
           <td><?= htmlspecialchars($u['email']) ?></td>
           <td><?= htmlspecialchars($u['name']) ?></td>
           <td><?= htmlspecialchars($u['role_name']) ?></td>
-           <td style="width:60px;">
-            <?php if ($avatarSrc): ?>
-              <img src="<?= htmlspecialchars($avatarSrc) ?>" class="rounded-circle" width="48" height="48" style="object-fit:cover;">
-            <?php else: ?>
-              <span class="text-muted small">Không có</span>
-            <?php endif; ?>
-          </td>
           <td>
             <div class="btn-group">
               <a href="<?= ADMIN_URL ?>/user/edit_user.php?id=<?= $u['id'] ?>" class="btn btn-sm btn-primary">
