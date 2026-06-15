@@ -114,7 +114,7 @@ ob_start();
             <?php endif; ?>
           </td>
           <td><?= htmlspecialchars($u['email']) ?></td>
-          <td><?= htmlspecialchars($u['name']) ?></td>
+          <td><?= htmlspecialchars($u['name'] ?: 'Chưa cập nhật') ?></td>
           <td><?= htmlspecialchars($u['role_name']) ?></td>
           <td>
             <div class="btn-group">
