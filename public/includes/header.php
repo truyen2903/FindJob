@@ -101,7 +101,6 @@ if (isset($_SESSION['user_id'])) {
                             <li><a class="dropdown-item" href="<?= BASE_URL ?>/candidate/profile.php">Tạo CV online</a></li>
                             <li><a class="dropdown-item" href="<?= BASE_URL ?>/candidate/profile.php">Quản lý hồ sơ</a></li>
                             <li><a class="dropdown-item" href="#">Thư viện mẫu CV</a></li>
-                             <li><a class="dropdown-item" href="#">Trọng Truyền đã sửa để test</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
