@@ -26,6 +26,12 @@ jobs:
             git checkout develop || git checkout -b develop origin/develop
             git reset --hard origin/develop
 
+            cat > .env <<'EOF'
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_REDIRECT_URI=https://staging.thaytruyen.id.vn/google_callback.php
+            EOF
+
             docker compose up -d --build --remove-orphans
 
             docker compose ps
